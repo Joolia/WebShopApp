@@ -1,0 +1,14 @@
+#makingAnOrder {
+	float: left;
+}
+
+.top-cnt {
+	border: 1px black solid;
+}
+
+.list-group {
+margin-bottom: 15px;
+}
+.list-group-item {
+    padding: 3px 10px
+}
