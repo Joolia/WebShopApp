@@ -17,6 +17,7 @@ margin-bottom: 15px;
     padding: 3px 10px
 }
 
-.products-table table tbody {
+.products-table {
+	height: 250px;
 	overflow: auto;
 }
