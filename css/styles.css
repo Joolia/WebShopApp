@@ -2,6 +2,10 @@
 	float: left;
 }
 
+#order, #makingAnOrder {
+	height: 300px;
+}
+
 .top-cnt {
 	border: 1px black solid;
 }
@@ -11,4 +15,8 @@ margin-bottom: 15px;
 }
 .list-group-item {
     padding: 3px 10px
+}
+
+.products-table table tbody {
+	overflow: auto;
 }
