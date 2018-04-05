@@ -3,7 +3,7 @@
 }
 
 #order, #makingAnOrder {
-	height: 300px;
+	height: 500px;
 }
 
 .top-cnt {
@@ -18,6 +18,11 @@ margin-bottom: 15px;
 }
 
 .products-table {
-	height: 250px;
+	height: 280px;
 	overflow: auto;
+	margin-bottom: 20px;
+}
+
+.order-controls button {
+	margin-top: 25px;
 }

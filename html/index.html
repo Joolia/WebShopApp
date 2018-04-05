@@ -32,13 +32,13 @@
               <div class="form-group row">
                 <label class="col-7 col-form-label">Discount:</label>
                 <div class="col">
-                  <input type="text" class="form-control" id="discount" data-bind="value: discount">
+                  <input type="text" class="form-control" id="discount" data-bind="textInput: discount">
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-7 col-form-label">Total product price:</label>
                 <div class="col">
-                  <input type="text" class="form-control" readonly id="totalPrice" data-bind="value: finalPrice">
+                  <input type="text" class="form-control" readonly id="totalPrice" data-bind="value: finalPrice, valueUpdate: 'afterkeydown'">
                 </div>
               </div>
               <button type="button" class="btn btn-primary btn-md btn-block" data-bind="enable: $data != null, click: $root.addProduct">Add product to order</button>
@@ -48,7 +48,7 @@
         <div id="order" class="top-cnt col-md-6">
           <h2>New order</h2>
           <div class="products-table">
-            <table class="table table-striped">
+            <table class="table table-sm table-striped">
               <thead>
                 <tr>
                   <th scope="col">#</th>
@@ -68,6 +68,26 @@
                 </tr>
               </tbody>
             </table>
+          </div>
+          <div class="order-controls row">
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-md-6 col-form-label">Total price:</label>
+                <div class="col">
+                  <input type="text" class="form-control" readonly id="productPrice" data-bind="value: $root.productsInOrder().length">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-md-6 col-form-label">Products count:</label>
+                <div class="col">
+                  <input type="text" class="form-control" readonly id="productPrice" data-bind="value: $root.productsInOrder().length">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-8">
+              <button type="button" class="btn btn-primary btn-md btn-block" data-bind="">Create order</button>
+            </div>
           </div>
         </div>
       </div>

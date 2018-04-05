@@ -31,11 +31,19 @@ function ProductsListViewModel() {
     self.productsInOrder = ko.observableArray();
 
     self.addProduct = function(product) {
-        self.productsInOrder.push(product);
+        var newIndex = self.productsInOrder().length + 1;
+        self.productsInOrder.push(new Product(newIndex, product.name(), product.finalPrice()));
     };
+
+    self.refreshIds = function() {
+        for (var i = 0; i < self.productsInOrder().length; i++) {
+            self.productsInOrder()[i].id(i + 1);
+        }
+    }
 
     self.removeProduct = function(product) {
         self.productsInOrder.remove(product);
+        self.refreshIds();
     };
 
     self.selectProduct = function(product) {
