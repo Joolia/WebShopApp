@@ -53,5 +53,16 @@ function ProductsListViewModel() {
     self.isProductSelected = function(product) {
         return self.selectedProduct() === product;
     };
+
+    self.totalOrderPrice = ko.computed(function(){
+        var productsPrices = $.map(self.productsInOrder(), function(elem){
+            return elem.finalPrice();
+        })
+        var totalOrderPrice = 0;
+        for(var i = 0; i < productsPrices.length; i++) {
+            totalOrderPrice += productsPrices[i];
+        }   
+        return totalOrderPrice;
+    });
 }
 ko.applyBindings(new ProductsListViewModel());

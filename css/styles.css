@@ -23,6 +23,11 @@ margin-bottom: 15px;
 	margin-bottom: 20px;
 }
 
+.products-table .close {
+	float: none;
+	margin-left: 13px;
+}
+
 .order-controls button {
 	margin-top: 25px;
 }
