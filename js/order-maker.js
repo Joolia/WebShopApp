@@ -1,9 +1,21 @@
+ko.validation.rules.between = {
+    validator: function(value, params) {
+        var min = params[0];
+        var max = params[1];
+
+        value = parseInt(value, 10);
+        return (value >= min && value <= max) || isNaN(value);
+    },
+    message: 'Value must be between {0} and {1}'
+};
+ko.validation.registerExtenders();
+
 function Product(id, name, price) {
     var self = this;
     self.id = ko.observable(id);
     self.name = ko.observable(name);
     self.price = ko.observable(price);
-    self.discount = ko.observable(0); // in %
+    self.discount = ko.observable(0).extend({between: [0, 100]}); // in %
     self.finalPrice = ko.computed(function() {
         var initialPrice = self.price();
         return initialPrice - initialPrice * self.discount() / 100;
@@ -70,6 +82,15 @@ function ProductsListViewModel() {
         new Product(6, "product 6", 240)
     ];
     self.selectedProduct = ko.observable(self.products[0]);
+
+    self.isDiscountValid = function() {
+        var currDiscount = self.selectedProduct().discount();
+        return currDiscount <= 100 && currDiscount >= 0;
+    };
+
+    self.addToOrderBtnEnabled = function() {
+        return self.selectedProduct() != null && self.isDiscountValid();
+    };
 
     self.order = ko.observable(new Order(0, []));
 
