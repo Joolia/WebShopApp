@@ -10,6 +10,49 @@ function Product(id, name, price) {
     });
 }
 
+function Order(id, products) {
+    var self = this;
+    self.id = ko.observable(id);
+    self.productsInOrder = ko.observableArray(products);
+
+    self.addProduct = function(product) {
+        var newIndex = self.productsInOrder().length + 1;
+        self.productsInOrder.push(new Product(newIndex, product.name(), product.finalPrice()));
+    };
+
+    self.refreshIds = function() {
+        for (var i = 0; i < self.productsInOrder().length; i++) {
+            self.productsInOrder()[i].id(i + 1);
+        }
+    }
+
+    self.removeProduct = function(product) {
+        self.productsInOrder.remove(product);
+        self.refreshIds();
+    };
+
+    self.totalOrderPrice = ko.computed(function() {
+        var productsPrices = $.map(self.productsInOrder(), function(elem) {
+            return elem.finalPrice();
+        })
+        var totalOrderPrice = 0;
+        for (var i = 0; i < productsPrices.length; i++) {
+            totalOrderPrice += productsPrices[i];
+        }
+        return totalOrderPrice;
+    });
+
+    self.productsListToString = function() {
+        return $.map(self.productsInOrder(), function(elem) {
+            return elem.name();
+        }).join(', ');
+    };
+
+    self.clearProducts = function() {
+        self.productsInOrder([]);
+    };
+}
+
 function ProductsListViewModel() {
     var self = this;
 
@@ -28,24 +71,9 @@ function ProductsListViewModel() {
     ];
     self.selectedProduct = ko.observable(self.products[0]);
 
-    self.productsInOrder = ko.observableArray();
+    self.order = ko.observable(new Order(0, []));
 
-    self.addProduct = function(product) {
-        var newIndex = self.productsInOrder().length + 1;
-        self.productsInOrder.push(new Product(newIndex, product.name(), product.finalPrice()));
-    };
-
-    self.refreshIds = function() {
-        for (var i = 0; i < self.productsInOrder().length; i++) {
-            self.productsInOrder()[i].id(i + 1);
-        }
-    }
-
-    self.removeProduct = function(product) {
-        self.productsInOrder.remove(product);
-        self.refreshIds();
-    };
-
+    // self.productsInOrder = ko.observableArray();
     self.selectProduct = function(product) {
         self.selectedProduct(product);
     };
@@ -54,15 +82,15 @@ function ProductsListViewModel() {
         return self.selectedProduct() === product;
     };
 
-    self.totalOrderPrice = ko.computed(function(){
-        var productsPrices = $.map(self.productsInOrder(), function(elem){
-            return elem.finalPrice();
-        })
-        var totalOrderPrice = 0;
-        for(var i = 0; i < productsPrices.length; i++) {
-            totalOrderPrice += productsPrices[i];
-        }   
-        return totalOrderPrice;
-    });
+    self.ordersList = ko.observable(new OrderList());
+}
+
+function OrderList() {
+    var self = this;
+    self.orders = ko.observableArray();
+    self.addOrder = function(order) {
+        self.orders.push(new Order(self.orders().length+1, order.productsInOrder()));
+        order.clearProducts();
+    };
 }
 ko.applyBindings(new ProductsListViewModel());
