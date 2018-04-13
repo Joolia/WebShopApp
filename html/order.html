@@ -1,0 +1,42 @@
+          <h2>New order</h2>
+          <div class="products-table">
+            <table class="table table-sm table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Delete</th>
+                </tr>
+              </thead>
+              <tbody data-bind="foreach: order().productsInOrder()">
+                <tr>
+                  <th scope="row" data-bind="text: id"></th>
+                  <td data-bind="text: name"></td>
+                  <td data-bind="text: finalPrice"></td>
+                  <td>
+                    <button type="button" class="close" data-bind="click: $parent.order().removeProduct"><i class="fa fa-times"></i></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="order-controls row">
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-md-6 col-form-label">Total price:</label>
+                <div class="col">
+                  <input type="text" class="form-control" readonly id="productsPrice" data-bind="value: $root.order().totalOrderPrice">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-md-6 col-form-label">Products count:</label>
+                <div class="col">
+                  <input type="text" class="form-control" readonly id="productsCount" data-bind="value: $root.order().productsInOrder().length">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <button type="button" class="btn btn-primary btn-md btn-block" data-bind="enable: $root.order().productsInOrder().length > 0, click: function() {ordersList().addOrder($root.order())}">Create order</button>
+            </div>
+          </div>

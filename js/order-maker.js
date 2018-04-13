@@ -1,3 +1,9 @@
+$("#makingAnOrder").load("../html/makingOrder.html");
+$("#order").load("../html/order.html");
+$("#approvedOrders").load("../html/approvedOrders.html", function(){
+    ko.applyBindings(new ProductsListViewModel(), document.getElementById('index'));
+});
+
 ko.validation.rules.between = {
     validator: function(value, params) {
         var min = params[0];
@@ -114,4 +120,3 @@ function OrderList() {
         order.clearProducts();
     };
 }
-ko.applyBindings(new ProductsListViewModel());

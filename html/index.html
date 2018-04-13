@@ -12,114 +12,20 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/knockout-validation/2.0.3/knockout.validation.min.js"></script>
     <title>Web shop</title>
   </head>
-  <body>
+  <body id="index">
     <div class="container-fluid" id="productsList">
       <div class="row">
         <div id="makingAnOrder" class="top-cnt col-md-6">
-          <h2>Available products</h2>
-          <div class="row">
-            <div class="goods-list col-md-6">
-              <div class="list-group" data-bind="foreach: products">
-                <a href="#" class="list-group-item list-group-item-action" data-bind="text: name, click: $parent.selectProduct, css: {active: $parent.isProductSelected($data)}"></a>
-              </div>
-            </div>
-            
-            <div class="goods-controls col-md-6" data-bind="with: selectedProduct">
-              <div class="form-group row">
-                <label class="col-7 col-form-label">Selected product price:</label>
-                <div class="col">
-                  <input type="text" class="form-control" readonly id="productPrice" data-bind="value: price">
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-7 col-form-label">Discount:</label>
-                <div class="col">
-                  <div class="input-group">
-                    <input type="text" class="form-control" id="discount" data-bind="textInput: discount">
-                    <div class="input-group-append">
-                      <span class="input-group-text" id="basic-addon2">%</span>
-                    </div>
-                  </div>
-                  
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-7 col-form-label">Total product price:</label>
-                <div class="col">
-                  <input type="text" class="form-control" readonly id="totalPrice" data-bind="value: $parent.isDiscountValid() ? finalPrice : '-', valueUpdate: 'afterkeydown'">
-                </div>
-              </div>
-              <button type="button" class="btn btn-primary btn-md btn-block" data-bind="enable: $parent.addToOrderBtnEnabled(), click: $root.order().addProduct">Add product to order</button>
-            </div>
-          </div>
+
         </div>
         <div id="order" class="top-cnt col-md-6">
-          <h2>New order</h2>
-          <div class="products-table">
-            <table class="table table-sm table-striped">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Name</th>
-                  <th scope="col">Price</th>
-                  <th scope="col">Delete</th>
-                </tr>
-              </thead>
-              <tbody data-bind="foreach: order().productsInOrder()">
-                <tr>
-                  <th scope="row" data-bind="text: id"></th>
-                  <td data-bind="text: name"></td>
-                  <td data-bind="text: finalPrice"></td>
-                  <td>
-                    <button type="button" class="close" data-bind="click: $parent.order().removeProduct"><i class="fa fa-times"></i></button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="order-controls row">
-            <div class="col-md-6">
-              <div class="form-group row">
-                <label class="col-md-6 col-form-label">Total price:</label>
-                <div class="col">
-                  <input type="text" class="form-control" readonly id="productsPrice" data-bind="value: $root.order().totalOrderPrice">
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-md-6 col-form-label">Products count:</label>
-                <div class="col">
-                  <input type="text" class="form-control" readonly id="productsCount" data-bind="value: $root.order().productsInOrder().length">
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <button type="button" class="btn btn-primary btn-md btn-block" data-bind="enable: $root.order().productsInOrder().length > 0, click: function() {ordersList().addOrder($root.order())}">Create order</button>
-            </div>
-          </div>
+
         </div>
       </div>
     </div>
     <div id="approvedOrders" class="col-md-12">
-      <h2>Approved orders</h2>
-      <div class="orders-table">
-        <table class="table table-sm table-striped">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Products</th>
-              <th>Total order Price</th>
-            </tr>
-            <tbody data-bind="foreach: ordersList().orders">
-               <tr>
-                  <th scope="row" data-bind="text: id"></th>
-                  <td data-bind="text: productsListToString()"></td>
-                  <td data-bind="text: totalOrderPrice"></td>
-                </tr>
-            </tbody>
-          </thead>
-        </table>
-      </div>
+
     </div>
-    <script type="text/javascript" src="../js/order-maker.js"></script>
   </body>
 </html>
+<script type="text/javascript" src="../js/order-maker.js"></script>
