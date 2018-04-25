@@ -1,20 +1,23 @@
-      <h2>Approved orders</h2>
-      <div class="orders-table">
-        <table class="table table-sm table-striped">
-          <thead>
+<div class="card">
+  <h2 class="card-header">Approved orders</h2>
+  <div class="card-body">
+    <div class="orders-table">
+      <table class="table table-sm table-striped">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Products</th>
+            <th>Total order Price</th>
+          </tr>
+          <tbody data-bind="foreach: ordersList().orders">
             <tr>
-              <th>#</th>
-              <th>Products</th>
-              <th>Total order Price</th>
+              <th scope="row" data-bind="text: id"></th>
+              <td data-bind="text: productsListToString()"></td>
+              <td data-bind="text: totalOrderPrice"></td>
             </tr>
-            <tbody data-bind="foreach: ordersList().orders">
-               <tr>
-                  <th scope="row" data-bind="text: id"></th>
-                  <td data-bind="text: productsListToString()"></td>
-                  <td data-bind="text: totalOrderPrice"></td>
-                </tr>
-            </tbody>
-          </thead>
-        </table>
-      </div>
-      
+          </tbody>
+        </thead>
+      </table>
+    </div>
+  </div>
+</div>
