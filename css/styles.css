@@ -3,7 +3,7 @@
 }
 
 #order, #makingAnOrder {
-	height: 500px;
+	padding-bottom: 10px;
 }
 
 .top-cnt, #approvedOrders {
@@ -18,7 +18,7 @@ margin-bottom: 15px;
 }
 
 .products-table {
-	height: 280px;
+	height: 200px;
 	overflow: auto;
 	margin-bottom: 20px;
 }
