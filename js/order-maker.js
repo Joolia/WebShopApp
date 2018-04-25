@@ -1,6 +1,6 @@
 $("#makingAnOrder").load("../html/makingOrder.html");
 $("#order").load("../html/order.html");
-$("#approvedOrders").load("../html/approvedOrders.html", function(){
+$("#approvedOrders").load("../html/approvedOrders.html", function() {
     ko.applyBindings(new ProductsListViewModel(), document.getElementById('index'));
 });
 
@@ -21,7 +21,9 @@ function Product(id, name, price) {
     self.id = ko.observable(id);
     self.name = ko.observable(name);
     self.price = ko.observable(price);
-    self.discount = ko.observable(0).extend({between: [0, 100]}); // in %
+    self.discount = ko.observable(0).extend({
+        between: [0, 100]
+    }); // in %
     self.finalPrice = ko.computed(function() {
         var initialPrice = self.price();
         return initialPrice - initialPrice * self.discount() / 100;
@@ -33,9 +35,17 @@ function Order(id, products) {
     self.id = ko.observable(id);
     self.productsInOrder = ko.observableArray(products);
 
+    var prAddedAlertId = "#pr_added";
+    var prRemovedAlertId = "#pr_removed";
+
+    function EnableAlert(alertId) {
+        $(alertId).stop(true, true).show().fadeOut(1600);
+    }
+
     self.addProduct = function(product) {
         var newIndex = self.productsInOrder().length + 1;
         self.productsInOrder.push(new Product(newIndex, product.name(), product.finalPrice()));
+        EnableAlert(prAddedAlertId);
     };
 
     self.refreshIds = function() {
@@ -47,6 +57,7 @@ function Order(id, products) {
     self.removeProduct = function(product) {
         self.productsInOrder.remove(product);
         self.refreshIds();
+        EnableAlert(prRemovedAlertId);
     };
 
     self.totalOrderPrice = ko.computed(function() {
@@ -116,7 +127,7 @@ function OrderList() {
     var self = this;
     self.orders = ko.observableArray();
     self.addOrder = function(order) {
-        self.orders.push(new Order(self.orders().length+1, order.productsInOrder()));
+        self.orders.push(new Order(self.orders().length + 1, order.productsInOrder()));
         order.clearProducts();
     };
 }
